@@ -1,5 +1,5 @@
 # Motor-Speed-Controller
-This is a motor speed controller for arduino
+A simple PID motor speed controller for Arduino
 
 # Description
 This motor controller uses a PID algorithm to regulate the speed of a motor using an infrarred optocoupler mounted over a encoder disk (connected to the output shaft of the motor) using the pulses from the optocoupler as the disk spins as a feedback and a H bridge as an output to control the direction and speed of the motor rotations.

@@ -8,3 +8,7 @@ The controller will receive a string via I2C or Serial containing the direction 
 # The PID controller
 The controller requires to be tuned to ensure the desired operation.
 The Ziegler-Nichols second tuning method for PID controllers in the book "Modern Control Engineering" by Katsuhiko Ogata followed by a manual tuning is recommended, due to its simplicity and the small amount of time required.
+
+# Files and Folders
+- **I2C Motor Controller** - This folder contains an I2C version of the motor controller
+  - **Motor_Controller.ino** - The arduino code file

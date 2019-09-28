@@ -33,9 +33,9 @@ byte PID(int rpm, int dt)
 }
 
 void setup() {
-  #if DEBUG
-    Serial.begin(115200);
-  #endif
+  Serial.begin(115200);
+  pinMode(INA, OUTPUT);
+  pinMode(INB, OUTPUT);
   attachInterrupt(0, encoderISR, RISING);
 }
 

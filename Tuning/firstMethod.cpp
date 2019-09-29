@@ -22,7 +22,7 @@ void setup() {
   digitalWrite(INA, LOW);
   digitalWrite(INB, LOW);
   delay(100);
-
+  digitalWrite(INA, HIGH);
   analogWrite(ENABLE, 255);
 }
 

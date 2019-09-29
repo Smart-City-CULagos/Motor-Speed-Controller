@@ -10,7 +10,9 @@ The controller requires to be tuned to ensure the desired operation.
 The Ziegler-Nichols second tuning method for PID controllers in the book "Modern Control Engineering" by Katsuhiko Ogata followed by a manual tuning is recommended, due to its simplicity and the small amount of time required.
 
 # Files and Folders
-- **Tuning** - This folder contains a simple tuning code for the PID controller 
+- **Tuning** - This folder contains two simple tuning codes for the PID controller 
+  - **firstMethod.cpp** - The arduino main code file for the Ziegler-Nichols first method approach on PID tuning
+  - **secondMethod.cpp** - The arduino main code file for the Ziegler-Nichols second method approach on PID tuning
 - **Serial** - This folder contains a Serial (UART) version of the motor speed controller
   - **main.cpp** - The arduino main code file
   - **constants.h** - Some constants for the main file

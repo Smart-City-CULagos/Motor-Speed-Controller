@@ -6,8 +6,7 @@ byte motorOutput = 0;
 bool direction = 0;
 
 unsigned long timeold = 0;
-unsigned long rpm = 0;
-unsigned long vel = 0;
+unsigned long feedback = 0;
 
 const int wheelDiameter = 0.064;
 const int pulsesperTurn = 20;
@@ -23,9 +22,9 @@ void encoderISR()
   pulses++;
 }
 
-byte PID(int rpm, int dt)
+byte PID(int feedbackValue, int dt)
 {
-  error = setpoint - rpm;
+  error = setpoint - feedbackValue;
   integral = integral + error * dt;
   derivative = (error - previous_error) / dt;
   previous_error = error;
@@ -42,7 +41,12 @@ void setup() {
 void loop() {
   if(Serial.available())
   {
+    direction = Serial.read();
     setpoint = Serial.parseInt();
+    while(Serial.available())
+    {
+      Serial.read();
+    }
     error = 0;
     integral = 0;
     derivative = 0;
@@ -51,12 +55,11 @@ void loop() {
   if(millis() - timeold >= 100)
   {
     noInterrupts();
-    rpm = (pulses * 1000 * 60) / ((millis()-timeold)*pulsesperTurn);
-    vel = wheelDiameter/2 * rpm * 0.104719;
+    feedback = (pulses * 1000 * 60) / ((millis()-timeold)*pulsesperTurn);
+    motorOutput = PID(feedback, millis()-timeold);
     pulses = 0;
-    motorOutput = PID(rpm, millis()-timeold);
     analogWrite(ENABLE, 0);
-    if(direction)
+    if(direction=='+')
     {
       digitalWrite(INA, LOW);
       digitalWrite(INB, LOW);
@@ -74,13 +77,17 @@ void loop() {
     }
     analogWrite(ENABLE, motorOutput);
     #if DEBUG
+      Serial.print("Target: ");
       Serial.print(setpoint);
       Serial.print("/t");
-      Serial.print(rpm);
+      Serial.print("RPM: ");
+      Serial.print(feedback);
       Serial.print("/t");
-      Serial.print(motorOutput);
-      Serial.print("/t");
+      Serial.print("Error: ");
       Serial.print(previous_error);
+      Serial.print("/t");
+      Serial.print("Output: ");
+      Serial.println(motorOutput);      
     #endif
     timeold = millis();
     interrupts();

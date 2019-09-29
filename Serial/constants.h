@@ -1,5 +1,7 @@
 #define DEBUG true
 
+#define MODE true //Control Mode true for RPM, false for Velocity
+
 #define ENABLE 0 //Enable Pin of the H bridge
 #define INA 1 //Input A of the H bridge
 #define INB 2 //Input B of the H bridge
